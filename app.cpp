@@ -29,7 +29,7 @@ void App::start(){
 
     // Sets the file path, it will return true if successful
     if(this->fileManager->setAPBFilePath(input)){
-        std::cout << "Successfully set the file path to: " << this->fileManager->getAPBFilePath().string() << std::endl;
+        std::cout << "Successfully set the file path to: " << this->fileManager->getAPBDirectoryPath().string() << std::endl;
         std::cout << "Please confirm that the file path is correct as shown above. Proceed with config installation? (y/n)" << std::endl;
         
         char cautionInput;
@@ -41,9 +41,12 @@ void App::start(){
             return;
         }
 
-        // If user confirms the config installation, it'll call the installConfigFiles function
-        this->fileManager->installConfigFiles();
-
+        // If user confirms the config installation, it'll call the installConfigFiles function, upon completion itll return true.
+        if(this->fileManager->installConfigFiles()){
+            std::cout << "Successfully installed the config files" << std::endl;
+        } else {
+            std::cout << "There was an error trying to install the config files" << std::endl;
+        }
         return;
     }
 

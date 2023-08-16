@@ -8,11 +8,13 @@ namespace fs = std::filesystem;
 
 class FileManager {
     public:
-        void installConfigFiles();
+        bool installConfigFiles();
+        bool downloadConfigFiles();
         bool setAPBFilePath(std::string path);
-        fs::path getAPBFilePath();
+        fs::path getAPBDirectoryPath();
     private:
-        fs::path filePath;
+        fs::path APBDirectoryPath;
+        fs::path configFilesPath = "../config/";
 };
 
 #endif // FILEMANAGER_H
