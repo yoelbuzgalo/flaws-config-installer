@@ -10,11 +10,12 @@ class FileManager {
     public:
         bool installConfigFiles();
         bool downloadConfigFiles();
+        bool extractConfigFiles();
         bool setAPBFilePath(std::string path);
         fs::path getAPBDirectoryPath();
     private:
         fs::path APBDirectoryPath;
-        fs::path configFilesPath = "../config.zip";
+        fs::path configFilesPath = "../config/";
 };
 
 #endif // FILEMANAGER_H
