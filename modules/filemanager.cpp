@@ -52,19 +52,21 @@ bool FileManager::installConfigFiles(){
 
 bool FileManager::downloadConfigFiles(){
     std::string configFilesPathString = fs::absolute(this->configFilesPath).string();
-    std::string downloadURLString = "https://github.com/flawsv/apb/releases/download/v1.4/Flaws.APB.Config.v1.4.zip";
+    std::cout << configFilesPathString << std::endl;
+    const wchar_t* downloadURL = L"https://github.com/flawsv/apb/releases/download/v1.4/Flaws.APB.Config.v1.4.zip";
 
     // Convert strings to wide strings
     std::wstring tempFilePath = std::wstring(configFilesPathString.begin(), configFilesPathString.end());
-    std::wstring tempDownloadURL = std::wstring(downloadURLString.begin(), downloadURLString.end());
+    // Convert wide string to const wchar_t*
+    const wchar_t* wideFilePath = tempFilePath.c_str();
+    std::wcout << wideFilePath << std::endl;
 
-    // Convert wide string to LPCWSTR
-    LPCWSTR wideFilePath = tempFilePath.c_str();
-    LPCWSTR wideDownloadURL = tempDownloadURL.c_str();
+    HRESULT hr = URLDownloadToFileW(NULL, downloadURL, wideFilePath, 0, NULL);
 
     // A windows feature to download from url
-    if (S_OK == URLDownloadToFile(NULL, wideDownloadURL, wideFilePath, 0, NULL)){
+    if (SUCCEEDED(hr)){
         std::cout << "Successfully downloaded the config files";
+        //exit(EXIT_FAILURE);
         return true;
     }
     return false;

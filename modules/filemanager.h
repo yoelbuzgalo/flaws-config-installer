@@ -14,7 +14,7 @@ class FileManager {
         fs::path getAPBDirectoryPath();
     private:
         fs::path APBDirectoryPath;
-        fs::path configFilesPath = "../config/";
+        fs::path configFilesPath = "../config.zip";
 };
 
 #endif // FILEMANAGER_H
